@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16.3
+    container_name: late-days-db
+    environment:
+      POSTGRES_DB: late_days
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+    networks:
+      - backend 
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+  
+volumes:
+  db-data:
+
+networks:
+  backend:
+    driver: bridge

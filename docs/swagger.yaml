@@ -1,0 +1,156 @@
+basePath: /v1
+definitions:
+  main.createLateDaysPayload:
+    properties:
+      days:
+        type: integer
+      student_email:
+        type: string
+      student_id:
+        maxLength: 255
+        type: string
+    required:
+    - days
+    - student_email
+    - student_id
+    type: object
+  main.updateLateDaysPayload:
+    properties:
+      days:
+        type: integer
+      student_email:
+        type: string
+      student_id:
+        maxLength: 255
+        type: string
+    type: object
+  store.LateDay:
+    properties:
+      days:
+        type: integer
+      id:
+        type: integer
+      student_email:
+        type: string
+      student_id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: API for managing late days
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Late Days API
+paths:
+  /late-days:
+    post:
+      consumes:
+      - application/json
+      description: Create late days
+      parameters:
+      - description: Late days payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/main.createLateDaysPayload'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/store.LateDay'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create late days
+      tags:
+      - Late Days
+  /late-days/{studentID}:
+    get:
+      consumes:
+      - application/json
+      description: Get late days by student ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: studentID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/store.LateDay'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get late days by student ID
+      tags:
+      - Late Days
+    patch:
+      consumes:
+      - application/json
+      description: Update late days
+      parameters:
+      - description: Student ID
+        in: path
+        name: studentID
+        required: true
+        type: string
+      - description: Late days payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/main.updateLateDaysPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/store.LateDay'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update late days
+      tags:
+      - Late Days
+swagger: "2.0"
